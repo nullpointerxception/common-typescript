@@ -10,28 +10,32 @@ export class AVLTree<T> {
     }
 
     public search(callback: (node: T) => number): T | null {
-
-    }
-
-    public insert(callback: (node: T) => number): T | null {
         return this.traverse(this.root, callback);
     }
 
-    public delete(callback: (node: T) => number): T | null {
-
+    public insert(callback: (node: T) => number): T | null {
+        // TODO: Implement
+        return null;
     }
 
-    private traverse(root: T | null, callback: (node: T) => number): T | null {
+    public delete(callback: (node: T) => number): T | null {
+        // TODO: Implement
+        return null;
+    }
+
+    private traverse(root: AVLNode<T> | null, callback: (node: T) => number): T | null {
         if (root == null) {
             return null;
         }
 
-        let compareValue = callback(root);
+        let compareValue = callback(root.getVal());
 
-        if(compareValue == 0){
-            return root;
-        } else if (compareValue < 0) {
-            return this.traverse(root.le);
+        if (compareValue < 0) {
+            return this.traverse(root.left, callback);
+        } else if (compareValue > 0) {
+            return this.traverse(root.right, callback);
+        } else {
+            return root.getVal();
         }
     }
 
